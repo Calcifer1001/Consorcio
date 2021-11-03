@@ -16,6 +16,7 @@ import entidades.Gasto;
 import modelo.dao.GastosDAO;
 import presentacion.tablemodel.DepartamentoTableModel;
 import presentacion.tablemodel.GastosTableModel;
+import servicios.GastosServicio;
 
 public class FormGasto extends JFrame  {
 	
@@ -31,8 +32,6 @@ public class FormGasto extends JFrame  {
 	private JLabel lblMonto = new JLabel("Monto:");
 	
 	private JTextField tfMonto = new JTextField("");
-			
-	private GastosDAO gastoDAO = new GastosDAO();
 	
 	private GastosTableModel modelo;
 	
@@ -86,11 +85,12 @@ public class FormGasto extends JFrame  {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Gasto gasto = getGastoFromForm();
-					gastoDAO.crearGastos(gasto);
+					GastosServicio gastoServicio = new GastosServicio();
+					int id = gastoServicio.crearGastos(gasto);
 					
 					JOptionPane.showMessageDialog(null, "Gasto creado satisfactoriamente");
-					modelo.gastoAgregar(gasto);
 					closeFrame(panel);
+					modelo.gastoAgregar(gasto);
 					modelo.fireTableDataChanged();
 					
 				} catch(Exception ex) {
@@ -108,7 +108,8 @@ public class FormGasto extends JFrame  {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Gasto gasto = getGastoFromForm();
-					gastoDAO.editarGastos(gasto);
+					GastosServicio gastoServicio = new GastosServicio();
+					int rowsAffected = gastoServicio.editarGastos(gasto);
 				
 					JOptionPane.showMessageDialog(null, "Gasto editado satisfactoriamente");
 					modelo.gastoEditar(index, gasto);

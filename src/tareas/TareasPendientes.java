@@ -17,10 +17,15 @@ public class TareasPendientes {
 	 * 4. Se implementï¿½ el flujo de crear y editar departamento para que utilicen la capa de servicio. Modificar los flujos de eliminar y pagar para que hagan lo mismo.
 	 */
 	
+	/** 03/11/2021
+	 * 1. Agregar los try/catch correspondientes en el archivo de Navbar
+	 * 2. Agregar los try/catch correspondientes en el archivo de ActionPanel
+	 * 3. Modificar la capa de presentacion de expensas y gastos para que no se comuniquen directamente con la capa de modelo, y pasen por la capa de servicio.
+	 * 4. Se implementó el flujo de crear y editar departamento para que utilicen la capa de servicio. Modificar los flujos de eliminar y pagar para que hagan lo mismo.
+	 */
+	
 	/**
 	 * Bugs conocidos
 	 * 1. Al cambio de mes, cuando se generan las expensas, no se actualiza el saldo actual.
-	 * 
-	 * cambio
 	 */
 }
