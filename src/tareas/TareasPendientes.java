@@ -20,5 +20,7 @@ public class TareasPendientes {
 	/**
 	 * Bugs conocidos
 	 * 1. Al cambio de mes, cuando se generan las expensas, no se actualiza el saldo actual.
+	 * 
+	 * cambio
 	 */
 }
