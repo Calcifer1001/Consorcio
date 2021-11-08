@@ -135,12 +135,18 @@ public class FormDepartamento extends JFrame {
 	}
 	
 	private Departamento getDepartamentoFromForm() {
-		int id = this.departamento.getId();
+		int id = -1;
+		float saldoActual = 0;
+		if(this.departamento != null) {
+			id = this.departamento.getId();
+			saldoActual = this.departamento.getSaldoActual();
+		}
+		
 		int u = Integer.parseInt(tfUnidad.getText());
 		String p = tfPropietario.getText();
 		String cop = tfCopropietario.getText();
 		
-		return new Departamento(id, u,p,cop, this.departamento.getSaldoActual());
+		return new Departamento(id, u,p,cop, saldoActual);
 	}
 	
 	private void closeFrame(JFrame panel) {

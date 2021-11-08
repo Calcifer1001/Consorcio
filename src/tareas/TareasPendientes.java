@@ -25,6 +25,12 @@ public class TareasPendientes {
 	 */
 	
 	/**
+	 * 
+	 * 	1. Agregar los try/catch correspondientes en el archivo de ActionPanel
+	 *  2. Mover los dao a la capa de servicio en el archivo de ActionPanel
+	 * 
+	 */
+	 /**
 	 * Bugs conocidos
 	 * 1. Al cambio de mes, cuando se generan las expensas, no se actualiza el saldo actual.
 	 */

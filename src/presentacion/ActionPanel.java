@@ -315,9 +315,9 @@ public class ActionPanel extends JPanel {
 
 					JOptionPane.showMessageDialog(null, "La expensa se genero satisfactoriamente");
 				} catch(JdbcSQLIntegrityConstraintViolationException ex) {
-					JOptionPane.showMessageDialog(null, "Ya se genero la expensa en este periodo y no se puede volver a generar");
+					JOptionPane.showMessageDialog(null, "Ya se genero la expensa en este periodo y no se puede volver a generar. " + ex.getMessage());
 				} catch(Exception ex) {
-					JOptionPane.showMessageDialog(null, ex.getMessage());
+					JOptionPane.showMessageDialog(null, "Ha ocurrido inesperado. Por favor reintente nuevamente o contacte al administrador");
 				}
 			}
 		};
