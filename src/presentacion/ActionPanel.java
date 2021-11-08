@@ -74,8 +74,7 @@ public class ActionPanel extends JPanel {
 			this.departamentoPagarButton.addActionListener(this.getRegistrarPagoDepartamentoClickListener());
 			
 			this.expensasDetalleButton.addActionListener(this.getDetalleExpensaClickListener());
-//			gastosButton.addActionListener(this.getGastosClickListener());
-//			expensasButton.addActionListener(this.getExpensasClickListener());
+
 			
 			this.add(departamentoCrearButton);
 			this.add(departamentoEditarButton);
@@ -151,7 +150,7 @@ public class ActionPanel extends JPanel {
 				DepartamentoTableModel model = (DepartamentoTableModel) TablaDatosPanel.modelo;
 				int[] selectedIndexes = TablaDatosPanel.tablaDatosDepartamentos.getSelectedRows();
 				if(selectedIndexes.length != 1) {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una única fila");
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una unica fila");
 					return;
 				}
 				int index  = selectedIndexes[0];
@@ -197,7 +196,7 @@ public class ActionPanel extends JPanel {
 				DepartamentoTableModel model = (DepartamentoTableModel) TablaDatosPanel.modelo;
 				int[] selectedIndexes = TablaDatosPanel.tablaDatosDepartamentos.getSelectedRows();
 				if(selectedIndexes.length != 1) {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una única fila");
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una ï¿½nica fila");
 					return;
 				}
 				int index  = selectedIndexes[0];
@@ -215,7 +214,7 @@ public class ActionPanel extends JPanel {
 					ExpensasTableModel model = (ExpensasTableModel) TablaDatosPanel.modelo;
 					int[] selectedIndexes = TablaDatosPanel.tablaDatosExpensas.getSelectedRows();
 					if(selectedIndexes.length != 1) {
-						JOptionPane.showMessageDialog(null, "Debe seleccionar una única fila");
+						JOptionPane.showMessageDialog(null, "Debe seleccionar una unica fila");
 						return;
 					}
 					int index  = selectedIndexes[0];
@@ -245,7 +244,7 @@ public class ActionPanel extends JPanel {
 				GastosTableModel model = (GastosTableModel) TablaDatosPanel.modelo;
 				int[] selectedIndexes = TablaDatosPanel.tablaDatosGastos.getSelectedRows();
 				if(selectedIndexes.length != 1) {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una única fila");
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una unica fila");
 					return;
 				}
 				int index  = selectedIndexes[0];
@@ -314,9 +313,9 @@ public class ActionPanel extends JPanel {
 					TablaDatosPanel.resetDepartamentosTable();
 					TablaDatosPanel.resetExpensasTable();
 
-					JOptionPane.showMessageDialog(null, "La expensa se generó satisfactoriamente");
+					JOptionPane.showMessageDialog(null, "La expensa se genero satisfactoriamente");
 				} catch(JdbcSQLIntegrityConstraintViolationException ex) {
-					JOptionPane.showMessageDialog(null, "Ya se generó la expensa en este período y no se puede volver a generar");
+					JOptionPane.showMessageDialog(null, "Ya se genero la expensa en este periodo y no se puede volver a generar");
 				} catch(Exception ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
 				}

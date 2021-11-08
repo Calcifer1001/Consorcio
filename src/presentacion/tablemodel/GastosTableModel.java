@@ -15,7 +15,7 @@ public class GastosTableModel extends AbstractTableModel{
 		
 		//Nombre encabezados
 		
-		private String[] nombreColumnas = {"Descripción gasto", "Monto"};
+		private String[] nombreColumnas = {"Descripcion gasto", "Monto"};
 		
 		//Tipo de cada columna
 		

@@ -68,8 +68,13 @@ public class Navbar extends JPanel {
 		return new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tableSection.showGastos();
-				actionSection.showGastos();
+				try{
+					tableSection.showGastos();
+					actionSection.showGastos();
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Hubo un problema al mostrar la seleccion de gastos");
+				}
+				
 			}
 		};
 	}
@@ -78,8 +83,13 @@ public class Navbar extends JPanel {
 		return new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tableSection.showExpensas();
-				actionSection.showExpensas();
+				try {
+					tableSection.showExpensas();
+					actionSection.showExpensas();	
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Hubo un problema al mostrar la seleccion de expensas");
+				}
+				
 			}
 		};
 	}

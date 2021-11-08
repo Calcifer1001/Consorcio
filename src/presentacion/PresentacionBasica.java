@@ -11,7 +11,7 @@ public class PresentacionBasica {
 	protected JFrame ventanaPrincipal;
 	
 	public void iniciarAplicacion() {
-		JFrame j = new JFrame("Administracion de consorcios");
+		JFrame j = new JFrame("Administracion de Consorcios");
 		
 		JPanel windowContainer = new JPanel();
 		windowContainer.setLayout(new BoxLayout(windowContainer, BoxLayout.Y_AXIS));
@@ -34,7 +34,6 @@ public class PresentacionBasica {
 		j.getContentPane().add(windowContainer);
 		
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		j.pack();
 		j.setVisible(true);
 	}
 

@@ -19,7 +19,7 @@ public class ExpensasTableModel extends AbstractTableModel {
 	
 	//Nombre encabezados
 	
-	private String[] nombreColumnas = {"Unidad departamento", "Período", "Monto", "Fecha de pago"};
+	private String[] nombreColumnas = {"Unidad departamento", "Periodo", "Monto", "Fecha de pago"};
 	
 	//Tipo de cada columna
 	
@@ -98,12 +98,5 @@ public class ExpensasTableModel extends AbstractTableModel {
 		this.contenido.add(expensa);
 	}
 	
-//	public void expensaEditar(int index, Expensas expensa) {
-//		this.contenido.set(index, expensa);
-//	}
-//	
-//	public void expensaEliminar(List<Expensas> listaAEliminar) {
-//		this.contenido.removeAll(listaAEliminar);
-//	}
 
 }

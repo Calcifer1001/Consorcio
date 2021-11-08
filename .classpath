@@ -6,7 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Programacion/Workspaces/Classgap/2021/Nicolas/2021_11_02/AplicacionA/lib/h2-1.4.200.jar">
+	<classpathentry kind="lib" path="/Users/nicolasdagostino/Desktop/LABO1/Consorcio/lib/h2-1.4.200.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
