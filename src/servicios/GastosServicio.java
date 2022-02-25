@@ -40,6 +40,12 @@ public class GastosServicio {
 		
 	}
 	
+	public float getGastosMesPasado() throws SQLException {
+		return this.gastoDao.getGastosMesPasado();
+	}
+	
+	
+	
 	
 
 }

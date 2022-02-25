@@ -1,9 +1,7 @@
 package presentacion;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,16 +10,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.AbstractTableModel;
 
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 
 import entidades.Departamento;
 import entidades.Expensas;
 import entidades.Gasto;
-import modelo.dao.DepartamentoDAO;
-import modelo.dao.ExpensasDAO;
-import modelo.dao.GastosDAO;
 import presentacion.forms.FormDepartamento;
 import presentacion.forms.FormGasto;
 import presentacion.forms.FormPago;
@@ -30,6 +24,9 @@ import presentacion.tabladatos.TablaDatosPanel;
 import presentacion.tablemodel.DepartamentoTableModel;
 import presentacion.tablemodel.ExpensasTableModel;
 import presentacion.tablemodel.GastosTableModel;
+import servicios.DepartamentoServicio;
+import servicios.ExpensaServicio;
+import servicios.GastosServicio;
 import utils.DateUtils;
 
 public class ActionPanel extends JPanel {
@@ -138,7 +135,11 @@ public class ActionPanel extends JPanel {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FormDepartamento((DepartamentoTableModel) TablaDatosPanel.modelo);
+				try {
+					new FormDepartamento((DepartamentoTableModel) TablaDatosPanel.modelo);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
 			}
 		};
 	}
@@ -147,15 +148,18 @@ public class ActionPanel extends JPanel {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DepartamentoTableModel model = (DepartamentoTableModel) TablaDatosPanel.modelo;
-				int[] selectedIndexes = TablaDatosPanel.tablaDatosDepartamentos.getSelectedRows();
-				if(selectedIndexes.length != 1) {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una unica fila");
-					return;
+				try {
+					DepartamentoTableModel model = (DepartamentoTableModel) TablaDatosPanel.modelo;
+					int[] selectedIndexes = TablaDatosPanel.tablaDatosDepartamentos.getSelectedRows();
+					if(selectedIndexes.length != 1) {
+						throw new Exception("Debe seleccionar una unica fila");
+					}
+					int index  = selectedIndexes[0];
+					Departamento dptoSeleccionado = model.getContenido().get(index);
+					new FormDepartamento(model, dptoSeleccionado, index);
+				} catch(Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
 				}
-				int index  = selectedIndexes[0];
-				Departamento dptoSeleccionado = model.getContenido().get(index);
-				new FormDepartamento(model, dptoSeleccionado, index);
 			}
 		};
 	}
@@ -167,16 +171,15 @@ public class ActionPanel extends JPanel {
 				try {
 					int[] seleccionados = TablaDatosPanel.tablaDatosDepartamentos.getSelectedRows();
 					if(seleccionados.length == 0) {
-						JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila");
-						return;
+						throw new Exception("Debe seleccionar una unica fila");
 					}
 					DepartamentoTableModel model = (DepartamentoTableModel) TablaDatosPanel.modelo;
 					List<Departamento> listaAEliminar = new ArrayList<Departamento>();
 					// Mover el DAO a la capa de servicio
-					DepartamentoDAO depDAO = new DepartamentoDAO();
+					DepartamentoServicio departamentoServicio = new DepartamentoServicio();
 					for (int indice : seleccionados) {
 						Departamento dpto = model.getContenido().get(indice);
-						depDAO.eliminarDepartamento(dpto);
+						departamentoServicio.departamentoEliminar(dpto.getId());
 						listaAEliminar.add(dpto);
 					}
 					model.departamentosEliminar(listaAEliminar);
@@ -193,15 +196,18 @@ public class ActionPanel extends JPanel {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DepartamentoTableModel model = (DepartamentoTableModel) TablaDatosPanel.modelo;
-				int[] selectedIndexes = TablaDatosPanel.tablaDatosDepartamentos.getSelectedRows();
-				if(selectedIndexes.length != 1) {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una �nica fila");
-					return;
+				try {
+					DepartamentoTableModel model = (DepartamentoTableModel) TablaDatosPanel.modelo;
+					int[] selectedIndexes = TablaDatosPanel.tablaDatosDepartamentos.getSelectedRows();
+					if(selectedIndexes.length != 1) {
+						throw new Exception("Debe seleccionar una unica fila");
+					}
+					int index  = selectedIndexes[0];
+					Departamento dptoSeleccionado = model.getContenido().get(index);
+					new FormPago(model, dptoSeleccionado, index);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
 				}
-				int index  = selectedIndexes[0];
-				Departamento dptoSeleccionado = model.getContenido().get(index);
-				new FormPago(model, dptoSeleccionado, index);
 			}
 		};
 	}
@@ -214,15 +220,14 @@ public class ActionPanel extends JPanel {
 					ExpensasTableModel model = (ExpensasTableModel) TablaDatosPanel.modelo;
 					int[] selectedIndexes = TablaDatosPanel.tablaDatosExpensas.getSelectedRows();
 					if(selectedIndexes.length != 1) {
-						JOptionPane.showMessageDialog(null, "Debe seleccionar una unica fila");
-						return;
+						throw new Exception("Debe seleccionar una unica fila");
 					}
 					int index  = selectedIndexes[0];
 					Expensas expensaSeleccionada = model.getContenido().get(index);
 					
-					new DetalleExpensas(expensaSeleccionada);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+					new DetalleExpensas(expensaSeleccionada);					
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
 				}
 			}
 		};
@@ -232,7 +237,11 @@ public class ActionPanel extends JPanel {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FormGasto((GastosTableModel) TablaDatosPanel.modelo);
+				try {
+					new FormGasto((GastosTableModel) TablaDatosPanel.modelo);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
 			}
 		};
 	}
@@ -241,15 +250,19 @@ public class ActionPanel extends JPanel {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GastosTableModel model = (GastosTableModel) TablaDatosPanel.modelo;
-				int[] selectedIndexes = TablaDatosPanel.tablaDatosGastos.getSelectedRows();
-				if(selectedIndexes.length != 1) {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una unica fila");
-					return;
+				try {
+					GastosTableModel model = (GastosTableModel) TablaDatosPanel.modelo;
+					int[] selectedIndexes = TablaDatosPanel.tablaDatosGastos.getSelectedRows();
+					if(selectedIndexes.length != 1) {
+						JOptionPane.showMessageDialog(null, "Debe seleccionar una unica fila");
+						return;
+					}
+					int index  = selectedIndexes[0];
+					Gasto dptoSeleccionado = model.getContenido().get(index);
+					new FormGasto(model, dptoSeleccionado, index);
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-				int index  = selectedIndexes[0];
-				Gasto dptoSeleccionado = model.getContenido().get(index);
-				new FormGasto(model, dptoSeleccionado, index);
 			}
 		};
 	}
@@ -267,10 +280,10 @@ public class ActionPanel extends JPanel {
 					GastosTableModel model = (GastosTableModel) TablaDatosPanel.modelo;
 					List<Gasto> listaAEliminar = new ArrayList<Gasto>();
 					// Mover el DAO a la capa de servicio
-					GastosDAO gastoDAO = new GastosDAO();
+					GastosServicio gastosServicio = new GastosServicio();
 					for (int indice : seleccionados) {
 						Gasto gasto = model.getContenido().get(indice);
-						gastoDAO.eliminarGastos(gasto);
+						gastosServicio.eliminarGastos(gasto);
 						listaAEliminar.add(gasto);
 					}
 					model.gastosEliminar(listaAEliminar);
@@ -289,24 +302,24 @@ public class ActionPanel extends JPanel {
 			public void actionPerformed( ActionEvent e ) {
 				try {
 					// Mover el DAO a la capa de servicio
-					GastosDAO gastoDAO = new GastosDAO();
+					GastosServicio gastosServicio = new GastosServicio();
 
 					// Mover el DAO a la capa de servicio
-					DepartamentoDAO depDAO = new DepartamentoDAO();
+					DepartamentoServicio departamentoServicio = new DepartamentoServicio();
 					
 					// Mover el DAO a la capa de servicio
-					ExpensasDAO expDAO = new ExpensasDAO();
+					ExpensaServicio expensaServicio = new ExpensaServicio();
 					
-					float gastosTotales = gastoDAO.getGastosMesPasado();
-					List<Departamento> departamentos = depDAO.listarTodos();
+					float gastosTotales = gastosServicio.getGastosMesPasado();
+					List<Departamento> departamentos = departamentoServicio.departamentosListar();
 					
 					float montoPorDepartamento = gastosTotales / departamentos.size();
 					Date periodo = DateUtils.formatAnoMes(DateUtils.obtenerMes(-1)[0]);
 					for (Departamento departamento : departamentos) {
 						Expensas expensa = new Expensas(-1, departamento.getId(), -1, periodo, montoPorDepartamento, null);
-						expDAO.crearExpensas(expensa);
+						expensaServicio.crearExpensas(expensa);
 						
-						depDAO.registrarExpensaDeparatmento(departamento, montoPorDepartamento);
+						departamentoServicio.departamentoExpensaRegistrar(departamento, montoPorDepartamento);
 					}
 					
 					

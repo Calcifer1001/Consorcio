@@ -124,10 +124,16 @@ public class FormGasto extends JFrame  {
 		};	
 	}
 	
-	private Gasto getGastoFromForm() {
+	private Gasto getGastoFromForm() throws Exception {
 		int id = this.id;
 		String descripcion = tfDescripcion.getText();
-		float monto = Float.valueOf(tfMonto.getText());
+		float monto = 0f;
+		try {
+			monto = Float.valueOf(tfMonto.getText());
+		} catch (Exception e) {
+			throw new Exception("El monto tiene que ser un número");
+		}
+		
 		
 		return new Gasto(id, descripcion, monto);
 	}

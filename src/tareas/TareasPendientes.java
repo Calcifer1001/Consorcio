@@ -30,8 +30,15 @@ public class TareasPendientes {
 	 *  2. Mover los dao a la capa de servicio en el archivo de ActionPanel
 	 * 
 	 */
+	
+	/** 25/11/2021
+	 * 
+	 * 	1. Revisar campos de form que no sean string, de validar que sean el tipo de datos correcto y sino tirar un mensaje coherente
+	 * 
+	 */
 	 /**
 	 * Bugs conocidos
-	 * 1. Al cambio de mes, cuando se generan las expensas, no se actualiza el saldo actual.
+	 * RESUELTO - 1. Al cambio de mes, cuando se generan las expensas, no se actualiza el saldo actual.
+	 * 2. Si en una ejecución se crea un registro a la base de datos, en esa misma ejecución no se puede modificar o eliminar, pero cerrando y volviendo a abrir sí se puede 
 	 */
 }

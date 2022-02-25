@@ -58,6 +58,7 @@ public class GastosDAO implements GastosDAOI{
 					+ ", parsedatetime('" + DateUtils.formatAnoMesDia(g.getFechaFacturacion()) + "', 'yyyy-MM-dd')"
 					+ ", parsedatetime('" + DateUtils.formatAnoMesDia(g.getFechaRegistro()) + "', 'yyyy-MM-dd')"
 					+ ")", Statement.RETURN_GENERATED_KEYS);
+			
 			return r;
 		}catch (SQLException e) {
 			e.printStackTrace();

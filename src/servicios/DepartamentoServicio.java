@@ -89,6 +89,11 @@ public class DepartamentoServicio {
 			return false;
 		}
 		return true;
-	}	
+	}
+	
+	public void departamentoExpensaRegistrar(Departamento departamento, float monto) throws SQLException {
+		this.departamentoValidar(departamento);
+		this.departamentoDao.registrarExpensaDeparatmento(departamento, monto);
+	}
 
 }
